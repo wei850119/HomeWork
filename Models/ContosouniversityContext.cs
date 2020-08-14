@@ -35,6 +35,9 @@ namespace Homework.Models
 
                 entity.Property(e => e.DepartmentId).HasDefaultValueSql("((1))");
 
+                entity.Property(e=> e.DateModified).HasColumnType("datetime");
+                entity.Property(e => e.IsDeleted).HasColumnType("bool");
+
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Course)
                     .HasForeignKey(d => d.DepartmentId)
@@ -71,6 +74,9 @@ namespace Homework.Models
                 entity.Property(e => e.RowVersion)
                     .IsRowVersion()
                     .IsConcurrencyToken();
+
+                entity.Property(e => e.DateModified).HasColumnType("datetime");
+                entity.Property(e => e.IsDeleted).HasColumnType("bool");
 
                 entity.HasOne(d => d.Instructor)
                     .WithMany(p => p.Department)
@@ -117,6 +123,8 @@ namespace Homework.Models
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.Property(e => e.Discriminator).HasDefaultValueSql("('Instructor')");
+                entity.Property(e => e.DateModified).HasColumnType("datetime");
+                entity.Property(e => e.IsDeleted).HasColumnType("bool");
             });
 
             modelBuilder.Entity<VwCourseStudentCount>(entity =>
