@@ -26,7 +26,7 @@ namespace Homework.Models
         public int? InstructorId { get; set; }
         [Required]
         public byte[] RowVersion { get; set; }
-
+        [Column(TypeName = "datetime")]
         public DateTime? DateModified { get; set;}
 
         public bool IsDeleted { get; set; }
