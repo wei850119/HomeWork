@@ -1,0 +1,727 @@
+Microsoft Windows [版本 10.0.19043.1466]
+(c) Microsoft Corporation. 著作權所有，並保留一切權利。
+
+C:\Users\108039>ssh admin@192.168.199.162
+The authenticity of host '192.168.199.162 (192.168.199.162)' can't be established.
+ECDSA key fingerprint is SHA256:TofxlvxR05U7Qt9AsN6yf6bH0Yj86u0yiqa9pIHBUbM.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.199.162' (ECDSA) to the list of known hosts.
+admin@192.168.199.162's password:
+Last failed login: Wed Jan 26 14:21:01 CST 2022 from 192.168.103.108 on ssh:notty
+There were 3 failed login attempts since the last successful login.
+Last login: Wed Jan 26 09:14:01 2022 from 192.168.103.133
+[admin@VM-INTRAMDBTest ~]$ ls
+[admin@VM-INTRAMDBTest ~]$ df -h
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             3.8G     0  3.8G   0% /dev
+tmpfs                3.8G     0  3.8G   0% /dev/shm
+tmpfs                3.8G  8.6M  3.8G   1% /run
+tmpfs                3.8G     0  3.8G   0% /sys/fs/cgroup
+/dev/mapper/rl-root   29G  1.9G   28G   7% /
+/dev/sda1           1014M  279M  736M  28% /boot
+/dev/mapper/rl-home   15G  140M   15G   1% /home
+tmpfs                777M     0  777M   0% /run/user/1000
+[admin@VM-INTRAMDBTest ~]$ sudo dnf info mariadb
+[sudo] password for admin:
+Last metadata expiration check: 0:13:10 ago on Wed 26 Jan 2022 02:10:43 PM CST.
+Available Packages
+Name         : mariadb
+Epoch        : 3
+Version      : 10.3.28
+Release      : 1.module+el8.4.0+427+adf35707
+Architecture : x86_64
+Size         : 6.0 M
+Source       : mariadb-10.3.28-1.module+el8.4.0+427+adf35707.src.rpm
+Repository   : appstream
+Summary      : A very fast and robust SQL database server
+URL          : http://mariadb.org
+License      : GPLv2 with exceptions and LGPLv2 and BSD
+Description  : MariaDB is a community developed branch of MySQL - a multi-user, multi-threaded
+             : SQL database server. It is a client/server implementation consisting of
+             : a server daemon (mysqld) and many different client programs and libraries.
+             : The base package contains the standard MariaDB/MySQL client programs and
+             : generic MySQL files.
+
+[admin@VM-INTRAMDBTest ~]$ vi /etc/yum.repos.d/mariadb.repo
+[admin@VM-INTRAMDBTest ~]$ ls
+[admin@VM-INTRAMDBTest ~]$ cd /etc/yum
+yum/         yum.conf     yum.repos.d/
+[admin@VM-INTRAMDBTest ~]$ cd /etc/yum
+yum/         yum.conf     yum.repos.d/
+[admin@VM-INTRAMDBTest ~]$ cd /etc/yum.repos.d/
+[admin@VM-INTRAMDBTest yum.repos.d]$ ls
+Rocky-AppStream.repo  Rocky-Debuginfo.repo  Rocky-Extras.repo            Rocky-Media.repo  Rocky-Plus.repo        Rocky-ResilientStorage.repo  Rocky-Sources.repo
+Rocky-BaseOS.repo     Rocky-Devel.repo      Rocky-HighAvailability.repo  Rocky-NFV.repo    Rocky-PowerTools.repo  Rocky-RT.repo
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo vi ^C
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo vi mariadb.repo
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo dnf install mariadb-server mariadb
+MariaDB                                                                                                                                          321 kB/s | 580 kB     00:01
+Last metadata expiration check: 0:00:01 ago on Wed 26 Jan 2022 02:27:37 PM CST.
+Dependencies resolved.
+================================================================================================================================================================================= Package                                      Architecture                 Version                                                         Repository                       Size
+=================================================================================================================================================================================Installing:
+ MariaDB-client                               x86_64                       10.6.5-1.el8                                                    mariadb                          14 M
+ MariaDB-server                               x86_64                       10.6.5-1.el8                                                    mariadb                          25 M
+Installing dependencies:
+ MariaDB-common                               x86_64                       10.6.5-1.el8                                                    mariadb                          88 k
+ MariaDB-shared                               x86_64                       10.6.5-1.el8                                                    mariadb                         115 k
+ boost-program-options                        x86_64                       1.66.0-10.el8                                                   appstream                       140 k
+ galera-4                                     x86_64                       26.4.9-1.el8                                                    mariadb                          13 M
+ libpmem                                      x86_64                       1.6.1-1.el8                                                     appstream                        78 k
+ lsof                                         x86_64                       4.93.2-1.el8                                                    baseos                          252 k
+ perl-Carp                                    noarch                       1.42-396.el8                                                    baseos                           29 k
+ perl-DBI                                     x86_64                       1.641-3.module+el8.4.0+509+59a8d9b3                             appstream                       739 k
+ perl-Data-Dumper                             x86_64                       2.167-399.el8                                                   baseos                           57 k
+ perl-Digest                                  noarch                       1.17-395.el8                                                    appstream                        26 k
+ perl-Digest-MD5                              x86_64                       2.55-396.el8                                                    appstream                        36 k
+ perl-Encode                                  x86_64                       4:2.97-3.el8                                                    baseos                          1.5 M
+ perl-Errno                                   x86_64                       1.28-420.el8                                                    baseos                           75 k
+ perl-Exporter                                noarch                       5.72-396.el8                                                    baseos                           33 k
+ perl-File-Path                               noarch                       2.15-2.el8                                                      baseos                           37 k
+ perl-File-Temp                               noarch                       0.230.600-1.el8                                                 baseos                           62 k
+ perl-Getopt-Long                             noarch                       1:2.50-4.el8                                                    baseos                           62 k
+ perl-HTTP-Tiny                               noarch                       0.074-1.el8                                                     baseos                           57 k
+ perl-IO                                      x86_64                       1.38-420.el8                                                    baseos                          141 k
+ perl-MIME-Base64                             x86_64                       3.15-396.el8                                                    baseos                           30 k
+ perl-Math-BigInt                             noarch                       1:1.9998.11-7.el8                                               baseos                          194 k
+ perl-Math-Complex                            noarch                       1.59-420.el8                                                    baseos                          107 k
+ perl-Net-SSLeay                              x86_64                       1.88-1.module+el8.4.0+512+d4f0fc54                              appstream                       378 k
+ perl-PathTools                               x86_64                       3.74-1.el8                                                      baseos                           89 k
+ perl-Pod-Escapes                             noarch                       1:1.07-395.el8                                                  baseos                           19 k
+ perl-Pod-Perldoc                             noarch                       3.28-396.el8                                                    baseos                           85 k
+ perl-Pod-Simple                              noarch                       1:3.35-395.el8                                                  baseos                          212 k
+ perl-Pod-Usage                               noarch                       4:1.69-395.el8                                                  baseos                           33 k
+ perl-Scalar-List-Utils                       x86_64                       3:1.49-2.el8                                                    baseos                           67 k
+ perl-Socket                                  x86_64                       4:2.027-3.el8                                                   baseos                           58 k
+ perl-Storable                                x86_64                       1:3.11-3.el8                                                    baseos                           97 k
+ perl-Term-ANSIColor                          noarch                       4.06-396.el8                                                    baseos                           45 k
+ perl-Term-Cap                                noarch                       1.17-395.el8                                                    baseos                           22 k
+ perl-Text-ParseWords                         noarch                       3.30-395.el8                                                    baseos                           17 k
+ perl-Text-Tabs+Wrap                          noarch                       2013.0523-395.el8                                               baseos                           23 k
+ perl-Time-Local                              noarch                       1:1.280-1.el8                                                   baseos                           32 k
+ perl-URI                                     noarch                       1.73-3.el8                                                      appstream                       115 k
+ perl-Unicode-Normalize                       x86_64                       1.25-396.el8                                                    baseos                           81 k
+ perl-constant                                noarch                       1.33-396.el8                                                    baseos                           24 k
+ perl-interpreter                             x86_64                       4:5.26.3-420.el8                                                baseos                          6.3 M
+ perl-libnet                                  noarch                       3.11-3.el8                                                      appstream                       120 k
+ perl-libs                                    x86_64                       4:5.26.3-420.el8                                                baseos                          1.6 M
+ perl-macros                                  x86_64                       4:5.26.3-420.el8                                                baseos                           71 k
+ perl-parent                                  noarch                       1:0.237-1.el8                                                   baseos                           19 k
+ perl-podlators                               noarch                       4.11-1.el8                                                      baseos                          117 k
+ perl-threads                                 x86_64                       1:2.21-2.el8                                                    baseos                           60 k
+ perl-threads-shared                          x86_64                       1.58-2.el8                                                      baseos                           47 k
+ rsync                                        x86_64                       3.1.3-12.el8                                                    baseos                          404 k
+ socat                                        x86_64                       1.7.4.1-1.el8                                                   appstream                       322 k
+Installing weak dependencies:
+ perl-IO-Socket-IP                            noarch                       0.39-5.el8                                                      appstream                        46 k
+ perl-IO-Socket-SSL                           noarch                       2.066-4.module+el8.4.0+512+d4f0fc54                             appstream                       297 k
+ perl-Mozilla-CA                              noarch                       20160104-7.module+el8.4.0+529+e3b3e624                          appstream                        14 k
+Enabling module streams:
+ perl                                                                      5.26
+ perl-DBI                                                                  1.641
+ perl-IO-Socket-SSL                                                        2.066
+ perl-libwww-perl                                                          6.34
+
+Transaction Summary
+=================================================================================================================================================================================Install  54 Packages
+
+Total download size: 67 M
+Installed size: 248 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/54): libpmem-1.6.1-1.el8.x86_64.rpm                                                                                                           1.7 MB/s |  78 kB     00:00
+(2/54): boost-program-options-1.66.0-10.el8.x86_64.rpm                                                                                           2.6 MB/s | 140 kB     00:00
+(3/54): perl-Digest-1.17-395.el8.noarch.rpm                                                                                                      1.4 MB/s |  26 kB     00:00
+(4/54): perl-Digest-MD5-2.55-396.el8.x86_64.rpm                                                                                                  2.0 MB/s |  36 kB     00:00
+(5/54): perl-IO-Socket-IP-0.39-5.el8.noarch.rpm                                                                                                  1.8 MB/s |  46 kB     00:00
+(6/54): perl-Mozilla-CA-20160104-7.module+el8.4.0+529+e3b3e624.noarch.rpm                                                                        823 kB/s |  14 kB     00:00
+(7/54): perl-DBI-1.641-3.module+el8.4.0+509+59a8d9b3.x86_64.rpm                                                                                  4.2 MB/s | 739 kB     00:00
+(8/54): perl-IO-Socket-SSL-2.066-4.module+el8.4.0+512+d4f0fc54.noarch.rpm                                                                        2.7 MB/s | 297 kB     00:00
+(9/54): perl-URI-1.73-3.el8.noarch.rpm                                                                                                           3.1 MB/s | 115 kB     00:00
+(10/54): perl-libnet-3.11-3.el8.noarch.rpm                                                                                                       3.3 MB/s | 120 kB     00:00
+(11/54): lsof-4.93.2-1.el8.x86_64.rpm                                                                                                            3.6 MB/s | 252 kB     00:00
+(12/54): perl-Net-SSLeay-1.88-1.module+el8.4.0+512+d4f0fc54.x86_64.rpm                                                                           2.0 MB/s | 378 kB     00:00
+(13/54): perl-Carp-1.42-396.el8.noarch.rpm                                                                                                       1.9 MB/s |  29 kB     00:00
+(14/54): socat-1.7.4.1-1.el8.x86_64.rpm                                                                                                          2.7 MB/s | 322 kB     00:00
+(15/54): perl-Data-Dumper-2.167-399.el8.x86_64.rpm                                                                                               1.8 MB/s |  57 kB     00:00
+(16/54): perl-Errno-1.28-420.el8.x86_64.rpm                                                                                                      4.3 MB/s |  75 kB     00:00
+(17/54): perl-Exporter-5.72-396.el8.noarch.rpm                                                                                                   1.7 MB/s |  33 kB     00:00
+(18/54): perl-File-Path-2.15-2.el8.noarch.rpm                                                                                                    2.4 MB/s |  37 kB     00:00
+(19/54): perl-File-Temp-0.230.600-1.el8.noarch.rpm                                                                                               2.7 MB/s |  62 kB     00:00
+(20/54): perl-Getopt-Long-2.50-4.el8.noarch.rpm                                                                                                  2.5 MB/s |  62 kB     00:00
+(21/54): perl-HTTP-Tiny-0.074-1.el8.noarch.rpm                                                                                                   2.5 MB/s |  57 kB     00:00
+(22/54): perl-MIME-Base64-3.15-396.el8.x86_64.rpm                                                                                                1.3 MB/s |  30 kB     00:00
+(23/54): perl-IO-1.38-420.el8.x86_64.rpm                                                                                                         3.0 MB/s | 141 kB     00:00
+(24/54): perl-Math-Complex-1.59-420.el8.noarch.rpm                                                                                               2.6 MB/s | 107 kB     00:00
+(25/54): perl-Math-BigInt-1.9998.11-7.el8.noarch.rpm                                                                                             2.5 MB/s | 194 kB     00:00
+(26/54): perl-PathTools-3.74-1.el8.x86_64.rpm                                                                                                    2.7 MB/s |  89 kB     00:00
+(27/54): perl-Pod-Escapes-1.07-395.el8.noarch.rpm                                                                                                1.4 MB/s |  19 kB     00:00
+(28/54): perl-Pod-Perldoc-3.28-396.el8.noarch.rpm                                                                                                4.6 MB/s |  85 kB     00:00
+(29/54): perl-Pod-Usage-1.69-395.el8.noarch.rpm                                                                                                  1.7 MB/s |  33 kB     00:00
+(30/54): perl-Pod-Simple-3.35-395.el8.noarch.rpm                                                                                                 3.6 MB/s | 212 kB     00:00
+(31/54): perl-Scalar-List-Utils-1.49-2.el8.x86_64.rpm                                                                                            2.2 MB/s |  67 kB     00:00
+(32/54): perl-Socket-2.027-3.el8.x86_64.rpm                                                                                                      3.5 MB/s |  58 kB     00:00
+(33/54): perl-Storable-3.11-3.el8.x86_64.rpm                                                                                                     3.7 MB/s |  97 kB     00:00
+(34/54): perl-Term-ANSIColor-4.06-396.el8.noarch.rpm                                                                                             1.9 MB/s |  45 kB     00:00
+(35/54): perl-Term-Cap-1.17-395.el8.noarch.rpm                                                                                                   1.5 MB/s |  22 kB     00:00
+(36/54): perl-Text-ParseWords-3.30-395.el8.noarch.rpm                                                                                            1.4 MB/s |  17 kB     00:00
+(37/54): perl-Text-Tabs+Wrap-2013.0523-395.el8.noarch.rpm                                                                                        1.8 MB/s |  23 kB     00:00
+(38/54): perl-Time-Local-1.280-1.el8.noarch.rpm                                                                                                  2.2 MB/s |  32 kB     00:00
+(39/54): perl-Unicode-Normalize-1.25-396.el8.x86_64.rpm                                                                                          4.0 MB/s |  81 kB     00:00
+(40/54): perl-constant-1.33-396.el8.noarch.rpm                                                                                                   1.3 MB/s |  24 kB     00:00
+(41/54): perl-Encode-2.97-3.el8.x86_64.rpm                                                                                                       3.7 MB/s | 1.5 MB     00:00
+(42/54): perl-macros-5.26.3-420.el8.x86_64.rpm                                                                                                   1.5 MB/s |  71 kB     00:00
+(43/54): perl-parent-0.237-1.el8.noarch.rpm                                                                                                      1.0 MB/s |  19 kB     00:00
+(44/54): perl-podlators-4.11-1.el8.noarch.rpm                                                                                                    2.7 MB/s | 117 kB     00:00
+(45/54): perl-threads-2.21-2.el8.x86_64.rpm                                                                                                      2.6 MB/s |  60 kB     00:00
+(46/54): perl-threads-shared-1.58-2.el8.x86_64.rpm                                                                                               2.1 MB/s |  47 kB     00:00
+(47/54): rsync-3.1.3-12.el8.x86_64.rpm                                                                                                           2.9 MB/s | 404 kB     00:00
+(48/54): perl-libs-5.26.3-420.el8.x86_64.rpm                                                                                                     3.0 MB/s | 1.6 MB     00:00
+(49/54): perl-interpreter-5.26.3-420.el8.x86_64.rpm                                                                                              5.8 MB/s | 6.3 MB     00:01
+(50/54): MariaDB-common-10.6.5-1.el8.x86_64.rpm                                                                                                   91 kB/s |  88 kB     00:00
+(51/54): MariaDB-shared-10.6.5-1.el8.x86_64.rpm                                                                                                  296 kB/s | 115 kB     00:00
+(52/54): MariaDB-client-10.6.5-1.el8.x86_64.rpm                                                                                                  1.9 MB/s |  14 MB     00:07
+(53/54): galera-4-26.4.9-1.el8.x86_64.rpm                                                                                                        1.9 MB/s |  13 MB     00:06
+(54/54): MariaDB-server-10.6.5-1.el8.x86_64.rpm                                                                                                  2.1 MB/s |  25 MB     00:11
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Total                                                                                                                                            4.5 MB/s |  67 MB     00:14
+MariaDB                                                                                                                                          9.9 kB/s | 8.2 kB     00:00
+Importing GPG key 0x1BB943DB:
+ Userid     : "MariaDB Package Signing Key <package-signing-key@mariadb.org>"
+ Fingerprint: 1993 69E5 404B D5FC 7D2F E43B CBCB 082A 1BB9 43DB
+ From       : https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+Is this ok [y/N]: y
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                         1/1
+  Running scriptlet: MariaDB-shared-10.6.5-1.el8.x86_64                                                                                                                     1/54
+  Installing       : MariaDB-shared-10.6.5-1.el8.x86_64                                                                                                                     1/54
+  Running scriptlet: MariaDB-shared-10.6.5-1.el8.x86_64                                                                                                                     1/54
+  Running scriptlet: MariaDB-common-10.6.5-1.el8.x86_64                                                                                                                     2/54
+  Installing       : MariaDB-common-10.6.5-1.el8.x86_64                                                                                                                     2/54
+  Running scriptlet: MariaDB-common-10.6.5-1.el8.x86_64                                                                                                                     2/54
+  Installing       : rsync-3.1.3-12.el8.x86_64                                                                                                                              3/54
+  Installing       : lsof-4.93.2-1.el8.x86_64                                                                                                                               4/54
+  Installing       : libpmem-1.6.1-1.el8.x86_64                                                                                                                             5/54
+  Running scriptlet: libpmem-1.6.1-1.el8.x86_64                                                                                                                             5/54
+  Installing       : perl-Digest-1.17-395.el8.noarch                                                                                                                        6/54
+  Installing       : perl-Digest-MD5-2.55-396.el8.x86_64                                                                                                                    7/54
+  Installing       : perl-Data-Dumper-2.167-399.el8.x86_64                                                                                                                  8/54
+  Installing       : perl-libnet-3.11-3.el8.noarch                                                                                                                          9/54
+  Installing       : perl-Net-SSLeay-1.88-1.module+el8.4.0+512+d4f0fc54.x86_64                                                                                             10/54
+  Installing       : perl-URI-1.73-3.el8.noarch                                                                                                                            11/54
+  Installing       : perl-Pod-Escapes-1:1.07-395.el8.noarch                                                                                                                12/54
+  Installing       : perl-Mozilla-CA-20160104-7.module+el8.4.0+529+e3b3e624.noarch                                                                                         13/54
+  Installing       : perl-IO-Socket-IP-0.39-5.el8.noarch                                                                                                                   14/54
+  Installing       : perl-Time-Local-1:1.280-1.el8.noarch                                                                                                                  15/54
+  Installing       : perl-IO-Socket-SSL-2.066-4.module+el8.4.0+512+d4f0fc54.noarch                                                                                         16/54
+  Installing       : perl-Term-ANSIColor-4.06-396.el8.noarch                                                                                                               17/54
+  Installing       : perl-Term-Cap-1.17-395.el8.noarch                                                                                                                     18/54
+  Installing       : perl-File-Temp-0.230.600-1.el8.noarch                                                                                                                 19/54
+  Installing       : perl-Pod-Simple-1:3.35-395.el8.noarch                                                                                                                 20/54
+  Installing       : perl-HTTP-Tiny-0.074-1.el8.noarch                                                                                                                     21/54
+  Installing       : perl-podlators-4.11-1.el8.noarch                                                                                                                      22/54
+  Installing       : perl-Pod-Perldoc-3.28-396.el8.noarch                                                                                                                  23/54
+  Installing       : perl-Text-ParseWords-3.30-395.el8.noarch                                                                                                              24/54
+  Installing       : perl-Pod-Usage-4:1.69-395.el8.noarch                                                                                                                  25/54
+  Installing       : perl-MIME-Base64-3.15-396.el8.x86_64                                                                                                                  26/54
+  Installing       : perl-Storable-1:3.11-3.el8.x86_64                                                                                                                     27/54
+  Installing       : perl-Getopt-Long-1:2.50-4.el8.noarch                                                                                                                  28/54
+  Installing       : perl-Errno-1.28-420.el8.x86_64                                                                                                                        29/54
+  Installing       : perl-Socket-4:2.027-3.el8.x86_64                                                                                                                      30/54
+  Installing       : perl-Encode-4:2.97-3.el8.x86_64                                                                                                                       31/54
+  Installing       : perl-Carp-1.42-396.el8.noarch                                                                                                                         32/54
+  Installing       : perl-Exporter-5.72-396.el8.noarch                                                                                                                     33/54
+  Installing       : perl-libs-4:5.26.3-420.el8.x86_64                                                                                                                     34/54
+  Installing       : perl-Scalar-List-Utils-3:1.49-2.el8.x86_64                                                                                                            35/54
+  Installing       : perl-parent-1:0.237-1.el8.noarch                                                                                                                      36/54
+  Installing       : perl-macros-4:5.26.3-420.el8.x86_64                                                                                                                   37/54
+  Installing       : perl-Text-Tabs+Wrap-2013.0523-395.el8.noarch                                                                                                          38/54
+  Installing       : perl-Unicode-Normalize-1.25-396.el8.x86_64                                                                                                            39/54
+  Installing       : perl-File-Path-2.15-2.el8.noarch                                                                                                                      40/54
+  Installing       : perl-IO-1.38-420.el8.x86_64                                                                                                                           41/54
+  Installing       : perl-PathTools-3.74-1.el8.x86_64                                                                                                                      42/54
+  Installing       : perl-constant-1.33-396.el8.noarch                                                                                                                     43/54
+  Installing       : perl-threads-1:2.21-2.el8.x86_64                                                                                                                      44/54
+  Installing       : perl-threads-shared-1.58-2.el8.x86_64                                                                                                                 45/54
+  Installing       : perl-interpreter-4:5.26.3-420.el8.x86_64                                                                                                              46/54
+  Installing       : perl-Math-Complex-1.59-420.el8.noarch                                                                                                                 47/54
+  Installing       : perl-Math-BigInt-1:1.9998.11-7.el8.noarch                                                                                                             48/54
+  Installing       : perl-DBI-1.641-3.module+el8.4.0+509+59a8d9b3.x86_64                                                                                                   49/54
+  Running scriptlet: MariaDB-client-10.6.5-1.el8.x86_64                                                                                                                    50/54
+  Installing       : MariaDB-client-10.6.5-1.el8.x86_64                                                                                                                    50/54
+  Running scriptlet: MariaDB-client-10.6.5-1.el8.x86_64                                                                                                                    50/54
+  Installing       : socat-1.7.4.1-1.el8.x86_64                                                                                                                            51/54
+  Installing       : boost-program-options-1.66.0-10.el8.x86_64                                                                                                            52/54
+  Running scriptlet: boost-program-options-1.66.0-10.el8.x86_64                                                                                                            52/54
+  Running scriptlet: galera-4-26.4.9-1.el8.x86_64                                                                                                                          53/54
+  Installing       : galera-4-26.4.9-1.el8.x86_64                                                                                                                          53/54
+  Running scriptlet: galera-4-26.4.9-1.el8.x86_64                                                                                                                          53/54
+  Running scriptlet: MariaDB-server-10.6.5-1.el8.x86_64                                                                                                                    54/54
+  Installing       : MariaDB-server-10.6.5-1.el8.x86_64                                                                                                                    54/54
+  Running scriptlet: MariaDB-server-10.6.5-1.el8.x86_64                                                                                                                    54/54
+
+
+Two all-privilege accounts were created.
+One is root@localhost, it has no password, but you need to
+be system 'root' user to connect. Use, for example, sudo mysql
+The second is mysql@localhost, it has no password either, but
+you need to be the system 'mysql' user to connect.
+After connecting you can set the password, if you would need to be
+able to connect as any of these users with a password and without sudo
+
+See the MariaDB Knowledgebase at https://mariadb.com/kb or the
+MySQL manual for more instructions.
+
+Please report any problems at https://mariadb.org/jira
+
+The latest information about MariaDB is available at https://mariadb.org/.
+You can find additional information about the MySQL part at:
+https://dev.mysql.com
+Consider joining MariaDB's strong and vibrant community:
+https://mariadb.org/get-involved/
+
+
+  Verifying        : boost-program-options-1.66.0-10.el8.x86_64                                                                                                             1/54
+  Verifying        : libpmem-1.6.1-1.el8.x86_64                                                                                                                             2/54
+  Verifying        : perl-DBI-1.641-3.module+el8.4.0+509+59a8d9b3.x86_64                                                                                                    3/54
+  Verifying        : perl-Digest-1.17-395.el8.noarch                                                                                                                        4/54
+  Verifying        : perl-Digest-MD5-2.55-396.el8.x86_64                                                                                                                    5/54
+  Verifying        : perl-IO-Socket-IP-0.39-5.el8.noarch                                                                                                                    6/54
+  Verifying        : perl-IO-Socket-SSL-2.066-4.module+el8.4.0+512+d4f0fc54.noarch                                                                                          7/54
+  Verifying        : perl-Mozilla-CA-20160104-7.module+el8.4.0+529+e3b3e624.noarch                                                                                          8/54
+  Verifying        : perl-Net-SSLeay-1.88-1.module+el8.4.0+512+d4f0fc54.x86_64                                                                                              9/54
+  Verifying        : perl-URI-1.73-3.el8.noarch                                                                                                                            10/54
+  Verifying        : perl-libnet-3.11-3.el8.noarch                                                                                                                         11/54
+  Verifying        : socat-1.7.4.1-1.el8.x86_64                                                                                                                            12/54
+  Verifying        : lsof-4.93.2-1.el8.x86_64                                                                                                                              13/54
+  Verifying        : perl-Carp-1.42-396.el8.noarch                                                                                                                         14/54
+  Verifying        : perl-Data-Dumper-2.167-399.el8.x86_64                                                                                                                 15/54
+  Verifying        : perl-Encode-4:2.97-3.el8.x86_64                                                                                                                       16/54
+  Verifying        : perl-Errno-1.28-420.el8.x86_64                                                                                                                        17/54
+  Verifying        : perl-Exporter-5.72-396.el8.noarch                                                                                                                     18/54
+  Verifying        : perl-File-Path-2.15-2.el8.noarch                                                                                                                      19/54
+  Verifying        : perl-File-Temp-0.230.600-1.el8.noarch                                                                                                                 20/54
+  Verifying        : perl-Getopt-Long-1:2.50-4.el8.noarch                                                                                                                  21/54
+  Verifying        : perl-HTTP-Tiny-0.074-1.el8.noarch                                                                                                                     22/54
+  Verifying        : perl-IO-1.38-420.el8.x86_64                                                                                                                           23/54
+  Verifying        : perl-MIME-Base64-3.15-396.el8.x86_64                                                                                                                  24/54
+  Verifying        : perl-Math-BigInt-1:1.9998.11-7.el8.noarch                                                                                                             25/54
+  Verifying        : perl-Math-Complex-1.59-420.el8.noarch                                                                                                                 26/54
+  Verifying        : perl-PathTools-3.74-1.el8.x86_64                                                                                                                      27/54
+  Verifying        : perl-Pod-Escapes-1:1.07-395.el8.noarch                                                                                                                28/54
+  Verifying        : perl-Pod-Perldoc-3.28-396.el8.noarch                                                                                                                  29/54
+  Verifying        : perl-Pod-Simple-1:3.35-395.el8.noarch                                                                                                                 30/54
+  Verifying        : perl-Pod-Usage-4:1.69-395.el8.noarch                                                                                                                  31/54
+  Verifying        : perl-Scalar-List-Utils-3:1.49-2.el8.x86_64                                                                                                            32/54
+  Verifying        : perl-Socket-4:2.027-3.el8.x86_64                                                                                                                      33/54
+  Verifying        : perl-Storable-1:3.11-3.el8.x86_64                                                                                                                     34/54
+  Verifying        : perl-Term-ANSIColor-4.06-396.el8.noarch                                                                                                               35/54
+  Verifying        : perl-Term-Cap-1.17-395.el8.noarch                                                                                                                     36/54
+  Verifying        : perl-Text-ParseWords-3.30-395.el8.noarch                                                                                                              37/54
+  Verifying        : perl-Text-Tabs+Wrap-2013.0523-395.el8.noarch                                                                                                          38/54
+  Verifying        : perl-Time-Local-1:1.280-1.el8.noarch                                                                                                                  39/54
+  Verifying        : perl-Unicode-Normalize-1.25-396.el8.x86_64                                                                                                            40/54
+  Verifying        : perl-constant-1.33-396.el8.noarch                                                                                                                     41/54
+  Verifying        : perl-interpreter-4:5.26.3-420.el8.x86_64                                                                                                              42/54
+  Verifying        : perl-libs-4:5.26.3-420.el8.x86_64                                                                                                                     43/54
+  Verifying        : perl-macros-4:5.26.3-420.el8.x86_64                                                                                                                   44/54
+  Verifying        : perl-parent-1:0.237-1.el8.noarch                                                                                                                      45/54
+  Verifying        : perl-podlators-4.11-1.el8.noarch                                                                                                                      46/54
+  Verifying        : perl-threads-1:2.21-2.el8.x86_64                                                                                                                      47/54
+  Verifying        : perl-threads-shared-1.58-2.el8.x86_64                                                                                                                 48/54
+  Verifying        : rsync-3.1.3-12.el8.x86_64                                                                                                                             49/54
+  Verifying        : MariaDB-client-10.6.5-1.el8.x86_64                                                                                                                    50/54
+  Verifying        : MariaDB-common-10.6.5-1.el8.x86_64                                                                                                                    51/54
+  Verifying        : MariaDB-server-10.6.5-1.el8.x86_64                                                                                                                    52/54
+  Verifying        : MariaDB-shared-10.6.5-1.el8.x86_64                                                                                                                    53/54
+  Verifying        : galera-4-26.4.9-1.el8.x86_64                                                                                                                          54/54
+
+Installed:
+  MariaDB-client-10.6.5-1.el8.x86_64                                                        MariaDB-common-10.6.5-1.el8.x86_64
+  MariaDB-server-10.6.5-1.el8.x86_64                                                        MariaDB-shared-10.6.5-1.el8.x86_64
+  boost-program-options-1.66.0-10.el8.x86_64                                                galera-4-26.4.9-1.el8.x86_64
+  libpmem-1.6.1-1.el8.x86_64                                                                lsof-4.93.2-1.el8.x86_64
+  perl-Carp-1.42-396.el8.noarch                                                             perl-DBI-1.641-3.module+el8.4.0+509+59a8d9b3.x86_64
+  perl-Data-Dumper-2.167-399.el8.x86_64                                                     perl-Digest-1.17-395.el8.noarch
+  perl-Digest-MD5-2.55-396.el8.x86_64                                                       perl-Encode-4:2.97-3.el8.x86_64
+  perl-Errno-1.28-420.el8.x86_64                                                            perl-Exporter-5.72-396.el8.noarch
+  perl-File-Path-2.15-2.el8.noarch                                                          perl-File-Temp-0.230.600-1.el8.noarch
+  perl-Getopt-Long-1:2.50-4.el8.noarch                                                      perl-HTTP-Tiny-0.074-1.el8.noarch
+  perl-IO-1.38-420.el8.x86_64                                                               perl-IO-Socket-IP-0.39-5.el8.noarch
+  perl-IO-Socket-SSL-2.066-4.module+el8.4.0+512+d4f0fc54.noarch                             perl-MIME-Base64-3.15-396.el8.x86_64
+  perl-Math-BigInt-1:1.9998.11-7.el8.noarch                                                 perl-Math-Complex-1.59-420.el8.noarch
+  perl-Mozilla-CA-20160104-7.module+el8.4.0+529+e3b3e624.noarch                             perl-Net-SSLeay-1.88-1.module+el8.4.0+512+d4f0fc54.x86_64
+  perl-PathTools-3.74-1.el8.x86_64                                                          perl-Pod-Escapes-1:1.07-395.el8.noarch
+  perl-Pod-Perldoc-3.28-396.el8.noarch                                                      perl-Pod-Simple-1:3.35-395.el8.noarch
+  perl-Pod-Usage-4:1.69-395.el8.noarch                                                      perl-Scalar-List-Utils-3:1.49-2.el8.x86_64
+  perl-Socket-4:2.027-3.el8.x86_64                                                          perl-Storable-1:3.11-3.el8.x86_64
+  perl-Term-ANSIColor-4.06-396.el8.noarch                                                   perl-Term-Cap-1.17-395.el8.noarch
+  perl-Text-ParseWords-3.30-395.el8.noarch                                                  perl-Text-Tabs+Wrap-2013.0523-395.el8.noarch
+  perl-Time-Local-1:1.280-1.el8.noarch                                                      perl-URI-1.73-3.el8.noarch
+  perl-Unicode-Normalize-1.25-396.el8.x86_64                                                perl-constant-1.33-396.el8.noarch
+  perl-interpreter-4:5.26.3-420.el8.x86_64                                                  perl-libnet-3.11-3.el8.noarch
+  perl-libs-4:5.26.3-420.el8.x86_64                                                         perl-macros-4:5.26.3-420.el8.x86_64
+  perl-parent-1:0.237-1.el8.noarch                                                          perl-podlators-4.11-1.el8.noarch
+  perl-threads-1:2.21-2.el8.x86_64                                                          perl-threads-shared-1.58-2.el8.x86_64
+  rsync-3.1.3-12.el8.x86_64                                                                 socat-1.7.4.1-1.el8.x86_64
+
+Complete!
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo systemctl start mariadb
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo systemctl status mariadb
+● mariadb.service - MariaDB 10.6.5 database server
+   Loaded: loaded (/usr/lib/systemd/system/mariadb.service; disabled; vendor preset: disabled)
+  Drop-In: /etc/systemd/system/mariadb.service.d
+           └─migrated-from-my.cnf-settings.conf
+   Active: active (running) since Wed 2022-01-26 14:31:21 CST; 8s ago
+     Docs: man:mariadbd(8)
+           https://mariadb.com/kb/en/library/systemd/
+  Process: 8876 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+  Process: 8851 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] && VAR= ||   VAR=`cd /usr/bin/..; /usr/bin/galera_recovery`; [ $? -eq 0 ]   && systemctl set-environme>  Process: 8849 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+ Main PID: 8861 (mariadbd)
+   Status: "Taking your SQL requests now..."
+    Tasks: 15 (limit: 49490)
+   Memory: 67.3M
+   CGroup: /system.slice/mariadb.service
+           └─8861 /usr/sbin/mariadbd
+
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] InnoDB: 10.6.5 started; log sequence number 42161; transaction id 14
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] Plugin 'FEEDBACK' is disabled.
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] InnoDB: Buffer pool(s) load completed at 220126 14:31:21
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] Server socket created on IP: '0.0.0.0'.
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] Server socket created on IP: '::'.
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: 2022-01-26 14:31:21 0 [Note] /usr/sbin/mariadbd: ready for connections.
+Jan 26 14:31:21 VM-INTRAMDBTest mariadbd[8861]: Version: '10.6.5-MariaDB'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  MariaDB Server
+Jan 26 14:31:21 VM-INTRAMDBTest systemd[1]: Started MariaDB 10.6.5 database server.
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo mariadb-secure-installation
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none):
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n] Y
+Enabled successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n] n
+ ... skipping.
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] Y
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] n
+ ... skipping.
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] Y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] Y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+[admin@VM-INTRAMDBTest yum.repos.d]$ mysql
+ERROR 1698 (28000): Access denied for user 'admin'@'localhost'
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo mysql
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.6.5-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> exit
+Bye
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo firewall-cmd --permanent --zone=public --add-port=3306/tcp
+success
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo firewall-cmd --reload
+success
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo mysql
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.6.5-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> exit
+Bye
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo dnf install python38
+Last metadata expiration check: 0:08:33 ago on Wed 26 Jan 2022 02:27:37 PM CST.
+Dependencies resolved.
+================================================================================================================================================================================= Package                                         Architecture                 Version                                                      Repository                       Size
+=================================================================================================================================================================================Installing:
+ python38                                        x86_64                       3.8.8-4.module+el8.5.0+672+ab6eb015                          appstream                        78 k
+Installing dependencies:
+ python38-libs                                   x86_64                       3.8.8-4.module+el8.5.0+672+ab6eb015                          appstream                       8.3 M
+ python38-pip-wheel                              noarch                       19.3.1-4.module+el8.5.0+672+ab6eb015                         appstream                       1.2 M
+ python38-setuptools-wheel                       noarch                       41.6.0-5.module+el8.5.0+672+ab6eb015                         appstream                       303 k
+Installing weak dependencies:
+ python38-pip                                    noarch                       19.3.1-4.module+el8.5.0+672+ab6eb015                         appstream                       1.9 M
+ python38-setuptools                             noarch                       41.6.0-5.module+el8.5.0+672+ab6eb015                         appstream                       667 k
+Enabling module streams:
+ python38                                                                     3.8
+
+Transaction Summary
+=================================================================================================================================================================================Install  6 Packages
+
+Total download size: 12 M
+Installed size: 45 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/6): python38-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64.rpm                                                                                   2.7 MB/s |  78 kB     00:00
+(2/6): python38-pip-wheel-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch.rpm                                                                        8.7 MB/s | 1.2 MB     00:00
+(3/6): python38-pip-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch.rpm                                                                              7.5 MB/s | 1.9 MB     00:00
+(4/6): python38-setuptools-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch.rpm                                                                       5.5 MB/s | 667 kB     00:00
+(5/6): python38-setuptools-wheel-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch.rpm                                                                 5.0 MB/s | 303 kB     00:00
+(6/6): python38-libs-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64.rpm                                                                               13 MB/s | 8.3 MB     00:00
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Total                                                                                                                                            9.9 MB/s |  12 MB     00:01
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                         1/1
+  Installing       : python38-setuptools-wheel-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                                                                                   1/6
+  Installing       : python38-pip-wheel-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                                                                                          2/6
+  Installing       : python38-libs-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                                                                                3/6
+  Installing       : python38-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                                                                                     4/6
+  Running scriptlet: python38-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                                                                                     4/6
+  Installing       : python38-setuptools-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                                                                                         5/6
+  Running scriptlet: python38-setuptools-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                                                                                         5/6
+  Installing       : python38-pip-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                                                                                                6/6
+  Running scriptlet: python38-pip-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                                                                                                6/6
+  Verifying        : python38-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                                                                                     1/6
+  Verifying        : python38-libs-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                                                                                2/6
+  Verifying        : python38-pip-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                                                                                                3/6
+  Verifying        : python38-pip-wheel-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                                                                                          4/6
+  Verifying        : python38-setuptools-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                                                                                         5/6
+  Verifying        : python38-setuptools-wheel-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                                                                                   6/6
+
+Installed:
+  python38-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64                                  python38-libs-3.8.8-4.module+el8.5.0+672+ab6eb015.x86_64
+  python38-pip-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch                             python38-pip-wheel-19.3.1-4.module+el8.5.0+672+ab6eb015.noarch
+  python38-setuptools-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch                      python38-setuptools-wheel-41.6.0-5.module+el8.5.0+672+ab6eb015.noarch
+
+Complete!
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo mysql
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 13
+Server version: 10.6.5-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE USER '108039'@'%' IDENTIFIED BY 'Aa1234';
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO '108039'@'%' IDENTIFIED BY PASSWORD 'Aa1234' WITH GRANT OPTION;
+ERROR 1372 (HY000): Password hash should be a 41-digit hexadecimal number
+MariaDB [(none)]> select password('Aa1234');
++-------------------------------------------+
+| password('Aa1234')                        |
++-------------------------------------------+
+| *E798321A750FDD829997240D5DC2F2FFC4D06D6D |
++-------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO '108039'@'%' IDENTIFIED BY PASSWORD '*E798321A750FDD829997240D5DC2F2FFC4D06D6D' WITH GRANT OPTION;
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [(none)]> exit
+Bye
+[admin@VM-INTRAMDBTest yum.repos.d]$ mysql -u 108039 -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.6.5-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> exi
+    -> t
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'exi
+t' at line 1
+MariaDB [(none)]> exit;
+Bye
+[admin@VM-INTRAMDBTest yum.repos.d]$ crondtab -l
+-bash: crondtab: command not found
+[admin@VM-INTRAMDBTest yum.repos.d]$ crondtab -e
+-bash: crondtab: command not found
+[admin@VM-INTRAMDBTest yum.repos.d]$ cronrtab
+-bash: cronrtab: command not found
+[admin@VM-INTRAMDBTest yum.repos.d]$ cron
+crond     cronnext  crontab
+[admin@VM-INTRAMDBTest yum.repos.d]$ cron
+crond     cronnext  crontab
+[admin@VM-INTRAMDBTest yum.repos.d]$ crontab
+^C[admin@VM-INTRAMDBTest yum.repos.d]$ crontab -l
+no crontab for admin
+[admin@VM-INTRAMDBTest yum.repos.d]$ crontab -e
+no crontab for admin - using an empty one
+crontab: installing new crontab
+[admin@VM-INTRAMDBTest yum.repos.d]$ git
+-bash: git: command not found
+[admin@VM-INTRAMDBTest yum.repos.d]$ sudo dnf install git
+[sudo] password for admin:
+Last metadata expiration check: 0:18:38 ago on Wed 26 Jan 2022 02:27:37 PM CST.
+Dependencies resolved.
+================================================================================================================================================================================= Package                                        Architecture                         Version                                       Repository                               Size
+=================================================================================================================================================================================Installing:
+ git                                            x86_64                               2.27.0-1.el8                                  appstream                               163 k
+Installing dependencies:
+ emacs-filesystem                               noarch                               1:26.1-7.el8                                  baseos                                   69 k
+ git-core                                       x86_64                               2.27.0-1.el8                                  appstream                               5.7 M
+ git-core-doc                                   noarch                               2.27.0-1.el8                                  appstream                               2.5 M
+ perl-Error                                     noarch                               1:0.17025-2.el8                               appstream                                45 k
+ perl-Git                                       noarch                               2.27.0-1.el8                                  appstream                                76 k
+ perl-TermReadKey                               x86_64                               2.37-7.el8                                    appstream                                39 k
+
+Transaction Summary
+=================================================================================================================================================================================Install  7 Packages
+
+Total download size: 8.6 M
+Installed size: 45 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/7): git-2.27.0-1.el8.x86_64.rpm                                                                                                               2.2 MB/s | 163 kB     00:00
+(2/7): perl-Error-0.17025-2.el8.noarch.rpm                                                                                                       1.1 MB/s |  45 kB     00:00
+(3/7): perl-Git-2.27.0-1.el8.noarch.rpm                                                                                                          867 kB/s |  76 kB     00:00
+(4/7): perl-TermReadKey-2.37-7.el8.x86_64.rpm                                                                                                    1.7 MB/s |  39 kB     00:00
+(5/7): emacs-filesystem-26.1-7.el8.noarch.rpm                                                                                                    1.4 MB/s |  69 kB     00:00
+(6/7): git-core-doc-2.27.0-1.el8.noarch.rpm                                                                                                      4.9 MB/s | 2.5 MB     00:00
+(7/7): git-core-2.27.0-1.el8.x86_64.rpm                                                                                                          5.4 MB/s | 5.7 MB     00:01
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Total                                                                                                                                            3.9 MB/s | 8.6 MB     00:02
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                         1/1
+  Installing       : git-core-2.27.0-1.el8.x86_64                                                                                                                            1/7
+  Installing       : git-core-doc-2.27.0-1.el8.noarch                                                                                                                        2/7
+  Installing       : emacs-filesystem-1:26.1-7.el8.noarch                                                                                                                    3/7
+  Installing       : perl-TermReadKey-2.37-7.el8.x86_64                                                                                                                      4/7
+  Installing       : perl-Error-1:0.17025-2.el8.noarch                                                                                                                       5/7
+  Installing       : perl-Git-2.27.0-1.el8.noarch                                                                                                                            6/7
+  Installing       : git-2.27.0-1.el8.x86_64                                                                                                                                 7/7
+  Running scriptlet: git-2.27.0-1.el8.x86_64                                                                                                                                 7/7
+  Verifying        : git-2.27.0-1.el8.x86_64                                                                                                                                 1/7
+  Verifying        : git-core-2.27.0-1.el8.x86_64                                                                                                                            2/7
+  Verifying        : git-core-doc-2.27.0-1.el8.noarch                                                                                                                        3/7
+  Verifying        : perl-Error-1:0.17025-2.el8.noarch                                                                                                                       4/7
+  Verifying        : perl-Git-2.27.0-1.el8.noarch                                                                                                                            5/7
+  Verifying        : perl-TermReadKey-2.37-7.el8.x86_64                                                                                                                      6/7
+  Verifying        : emacs-filesystem-1:26.1-7.el8.noarch                                                                                                                    7/7
+
+Installed:
+  emacs-filesystem-1:26.1-7.el8.noarch  git-2.27.0-1.el8.x86_64             git-core-2.27.0-1.el8.x86_64  git-core-doc-2.27.0-1.el8.noarch  perl-Error-1:0.17025-2.el8.noarch
+  perl-Git-2.27.0-1.el8.noarch          perl-TermReadKey-2.37-7.el8.x86_64
+
+Complete!
+[admin@VM-INTRAMDBTest yum.repos.d]$ git
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone             Clone a repository into a new directory
+   init              Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add               Add file contents to the index
+   mv                Move or rename a file, a directory, or a symlink
+   restore           Restore working tree files
+   rm                Remove files from the working tree and from the index
+   sparse-checkout   Initialize and modify the sparse-checkout
+
+examine the history and state (see also: git help revisions)
+   bisect            Use binary search to find the commit that introduced a bug
+   diff              Show changes between commits, commit and working tree, etc
+   grep              Print lines matching a pattern
+   log               Show commit logs
+   show              Show various types of objects
+   status            Show the working tree status
+
+grow, mark and tweak your common history
+   branch            List, create, or delete branches
+   commit            Record changes to the repository
+   merge             Join two or more development histories together
+   rebase            Reapply commits on top of another base tip
+   reset             Reset current HEAD to the specified state
+   switch            Switch branches
+   tag               Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch             Download objects and refs from another repository
+   pull              Fetch from and integrate with another repository or a local branch
+   push              Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+See 'git help git' for an overview of the system.
+[admin@VM-INTRAMDBTest yum.repos.d]$ df -h
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             3.8G     0  3.8G   0% /dev
+tmpfs                3.8G     0  3.8G   0% /dev/shm
+tmpfs                3.8G  8.6M  3.8G   1% /run
+tmpfs                3.8G     0  3.8G   0% /sys/fs/cgroup
+/dev/mapper/rl-root   29G  2.4G   27G   9% /
+/dev/sda1           1014M  279M  736M  28% /boot
+/dev/mapper/rl-home   15G  140M   15G   1% /home
+tmpfs                777M     0  777M   0% /run/user/1000
+[admin@VM-INTRAMDBTest yum.repos.d]$
